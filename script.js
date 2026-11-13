@@ -34,6 +34,26 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
   }
 
+  // [السطر 39] - حطينَا هنا دالة تشغيل الصوت
+  function playPopSound() {
+    const audio = new Audio('pop.mp3');
+    audio.volume = 0.6;
+    audio.play().catch(error => {
+      console.log("Audio play prevented by browser:", error);
+    });
+  }
+
+  function generateTaskId() {
+    return Date.now() + Math.random() * 1000;
+  }
+
+  function getLocalDateString(date = new Date()) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
   function escapeHtml(value) {
     return String(value)
       .replace(/&/g, '&amp;')
@@ -116,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
           task.text.toLowerCase().includes(searchTerm) ||
           task.category.toLowerCase().includes(searchTerm);
 
-        const today = new Date().toISOString().slice(0, 10);
+        const today = getLocalDateString();
 
         let matchesFilter = true;
 
@@ -185,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const newTask = {
-      id: Date.now(),
+      id: generateTaskId(),
       text,
       category: categorySelect.value,
       priority: prioritySelect.value,
@@ -196,6 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     tasks.push(newTask);
     saveTasks();
+    playPopSound();
+
     taskInput.value = '';
     categorySelect.value = 'General';
     prioritySelect.value = 'medium';
@@ -208,6 +230,10 @@ document.addEventListener('DOMContentLoaded', () => {
       task.id === Number(id) ? { ...task, completed: !task.completed } : task
     );
     saveTasks();
+    
+    // [السطر 163 تقريباً] - شغلنا الصوت برضه هنا لو دوست على علامة الصح (إنهاء المهمة)
+    playPopSound();
+
     updateUI();
   }
 
