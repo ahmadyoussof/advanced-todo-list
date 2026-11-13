@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
   }
 
-  // دالة تشغيل الصوت بالاسم الطويل اللي رفعته
+  // دالة تشغيل الصوت بالاسم الطويل الصحيح
   function playPopSound() {
     const audio = new Audio('776443__chaferwitt__pop-out-bubble-soft-bursting.mp3');
     audio.volume = 0.6;
