@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // [السطر 39] - حطينَا هنا دالة تشغيل الصوت
   function playPopSound() {
-    const audio = new Audio('pop.mp3');
+   const audio = new Audio('776443__chaferwitt__pop-out-bubble-soft-bursting.mp3');
     audio.volume = 0.6;
     audio.play().catch(error => {
       console.log("Audio play prevented by browser:", error);
