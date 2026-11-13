@@ -34,9 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
   }
 
-  // [السطر 39] - حطينَا هنا دالة تشغيل الصوت
+  // دالة تشغيل الصوت بالاسم الطويل اللي رفعته
   function playPopSound() {
-   const audio = new Audio('776443__chaferwitt__pop-out-bubble-soft-bursting.mp3');
+    const audio = new Audio('776443__chaferwitt__pop-out-bubble-soft-bursting.mp3');
     audio.volume = 0.6;
     audio.play().catch(error => {
       console.log("Audio play prevented by browser:", error);
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     tasks.push(newTask);
     saveTasks();
-    playPopSound();
+    playPopSound(); // تشغيل الصوت عند الإضافة
 
     taskInput.value = '';
     categorySelect.value = 'General';
@@ -230,9 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
       task.id === Number(id) ? { ...task, completed: !task.completed } : task
     );
     saveTasks();
-    
-    // [السطر 163 تقريباً] - شغلنا الصوت برضه هنا لو دوست على علامة الصح (إنهاء المهمة)
-    playPopSound();
+    playPopSound(); // تشغيل الصوت عند إتمام المهمة
 
     updateUI();
   }
