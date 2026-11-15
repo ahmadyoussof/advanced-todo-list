@@ -34,12 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
   }
 
-  // تشغيل الصوت من ملف pop.mp3 الموجود بجانب ملفات الموقع
+  // دالة تشغيل الصوت من ملف المشروع pop.mp3
   function playPopSound() {
     const audio = new Audio('./pop.mp3');
     audio.volume = 0.6;
     audio.play().catch(error => {
-      console.log('Audio play prevented by browser:', error);
+      console.log("Audio play prevented by browser:", error);
     });
   }
 
@@ -75,9 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function sortTasks(items) {
     return [...items].sort((a, b) => {
-      if (a.completed !== b.completed) {
-        return Number(a.completed) - Number(b.completed);
-      }
+      if (a.completed !== b.completed) return Number(a.completed) - Number(b.completed);
 
       const priorityOrder = { high: 0, medium: 1, low: 2 };
       const priorityDiff = priorityOrder[a.priority] - priorityOrder[b.priority];
@@ -93,8 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function applyTheme(theme) {
     document.body.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
-    themeToggle.textContent =
-      theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+    themeToggle.textContent = theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
   }
 
   function loadTheme() {
@@ -140,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
           task.category.toLowerCase().includes(searchTerm);
 
         const today = getLocalDateString();
+
         let matchesFilter = true;
 
         if (currentFilter === 'active') matchesFilter = !task.completed;
@@ -218,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     tasks.push(newTask);
     saveTasks();
-    playPopSound();
+    playPopSound(); // تشغيل الصوت عند الإضافة
 
     taskInput.value = '';
     categorySelect.value = 'General';
@@ -232,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
       task.id === Number(id) ? { ...task, completed: !task.completed } : task
     );
     saveTasks();
-    playPopSound();
+    playPopSound(); // تشغيل الصوت عند إتمام المهمة
 
     updateUI();
   }
@@ -248,6 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!task) return;
 
     const newText = prompt('Edit task:', task.text);
+
     if (newText === null) return;
 
     const cleaned = newText.trim();
